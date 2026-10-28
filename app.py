@@ -24,9 +24,20 @@ if not os.path.exists("static"):
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Чистая база данных (начинается с нуля)
-Автоматическая загрузка карточек из папки static/cards
-CARDS_DB = [] CARDS_DIR = "static/cards"
-if os.path.exists(CARDS_DIR): for filename in os.listdir(CARDS_DIR): if filename.lower().endswith((".png", ".jpg", ".jpeg", ".webp")): CARDS_DB.append({ "title": filename.rsplit(".", 1)[0], "author": "skin.pay", "image": f"/static/cards/{filename}", "likes": 0, "downloads": 0, })
+# Автоматическая загрузка карточек из папки static/cards
+CARDS_DB = []
+CARDS_DIR = "static/cards"
+
+if os.path.exists(CARDS_DIR):
+    for filename in os.listdir(CARDS_DIR):
+        if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')):
+            CARDS_DB.append({
+                "title": filename.rsplit('.', 1)[0],
+                "author": "skin.pay",
+                "image": f"/static/cards/{filename}",
+                "likes": 0,
+                "downloads": 0
+            })
 
 # Разрешенные расширения файлов для безопасности
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}

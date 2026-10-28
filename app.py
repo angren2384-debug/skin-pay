@@ -29,8 +29,10 @@ CARDS_DB = []
 CARDS_DIR = "static/cards"
 
 if os.path.exists(CARDS_DIR):
-    for filename in os.listdir(CARDS_DIR):
-        if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')):
+    files = os.listdir(CARDS_DIR)
+    print(f"DEBUG: Найдено файлов в папке: {len(files)}")
+    for filename in files:
+        if not filename.startswith('.'):
             CARDS_DB.append({
                 "title": filename.rsplit('.', 1)[0],
                 "author": "skin.pay",
@@ -38,6 +40,9 @@ if os.path.exists(CARDS_DIR):
                 "likes": 0,
                 "downloads": 0
             })
+    print(f"DEBUG: Загружено карточек в базу: {len(CARDS_DB)}")
+else:
+    print(f"DEBUG: Папка {CARDS_DIR} не найдена!")
 
 # Разрешенные расширения файлов для безопасности
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
